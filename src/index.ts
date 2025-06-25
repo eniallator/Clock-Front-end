@@ -50,22 +50,30 @@ const initTimeInput = (el: HTMLInputElement) => {
 
 getAll<HTMLInputElement>(".time-input").forEach(initTimeInput);
 const timeModeToggle = getEl<HTMLInputElement>(".time-mode");
-export const positiveMod = (a: number, b: number) => ((a % b) + b) % b;
+
+const positiveMod = (a: number, b: number) => ((a % b) + b) % b;
+
+const time24to12 = (hr: number, minStr: string) =>
+  `${positiveMod(hr - 1, 12) + 1}:${minStr}${hr < 12 ? "am" : "pm"}`;
+const time12to24 = (hr: number, minStr: string, mode: string | undefined) =>
+  `${(hr % 12) + Number(mode === "pm") * 12}:`.padStart(3, "0") + minStr;
+
+const timeTo24Hr = (hrStr: string, minStr: string, mode: string | undefined) =>
+  mode != null ? time12to24(Number(hrStr), minStr, mode) : `${hrStr}:${minStr}`;
 
 const timePartsRegex = /(\d+):(\d+)(am|pm)?/i;
+
 timeModeToggle.onchange = () => {
   getAll<HTMLInputElement>(".time-input").forEach((el) => {
     const [_, hrStr, minStr, mode] = timePartsRegex.exec(el.value) ?? [];
-    if (hrStr == null) return;
+    if (hrStr == null || minStr == null) return;
 
     const hr = Number(hrStr);
 
     if (timeModeToggle.checked && hr < 24) {
-      const adjustedHr = positiveMod(hr - 1, 12) + 1;
-      el.value = `${adjustedHr}:${minStr}${hr < 12 ? "am" : "pm"}`;
+      el.value = time24to12(hr, minStr);
     } else if (!timeModeToggle.checked && hr > 0 && hr <= 12) {
-      const adjustedHrStr = `${(hr % 12) + Number(mode === "pm") * 12}`;
-      el.value = `${adjustedHrStr.padStart(2, "0")}:${minStr}`;
+      el.value = time12to24(hr, minStr, mode);
     }
   });
 };
@@ -124,8 +132,9 @@ const initialValues = new URLSearchParams(location.search);
 for (const [key, value] of initialValues.entries()) {
   switch (key) {
     case "time": {
-      if (timeRegex.test(value)) {
-        timeInput.value = value;
+      const [_, hrStr, minStr, mode] = timePartsRegex.exec(value) ?? [];
+      if (hrStr != null && minStr != null) {
+        timeInput.value = timeTo24Hr(hrStr, minStr, mode);
       }
       break;
     }
@@ -148,8 +157,9 @@ for (const [key, value] of initialValues.entries()) {
     }
 
     case "alarm": {
-      if (timeRegex.test(value)) {
-        createAlarm().value = value;
+      const [_, hrStr, minStr, mode] = timePartsRegex.exec(value) ?? [];
+      if (hrStr != null && minStr != null) {
+        createAlarm().value = timeTo24Hr(hrStr, minStr, mode);
       }
       break;
     }
