@@ -1,0 +1,51 @@
+{
+  "author": "eniallator",
+  "description": "Matt's clock source code",
+  "license": "MIT",
+  "main": "src/index.ts",
+  "name": "matts-clock",
+  "packageManager": "yarn@1.22.22",
+  "private": true,
+  "type": "module",
+  "version": "1.0.0",
+  "engines": {
+    "node": ">=22.14.0"
+  },
+  "scripts": {
+    "build:css": "css-minify -f css/styles.css -o public/static/css",
+    "build:ts": "node esbuild.build.mjs",
+    "build": "yarn build:ts && yarn build:css",
+    "dev": "node esbuild.dev.mjs",
+    "lint": "eslint ./src",
+    "typecheck": "tsc --noEmit",
+    "findissues": "yarn typecheck && yarn lint"
+  },
+  "dependencies": {
+    "css-minify": "^2.1.0",
+    "deep-guards": "^1.0.5",
+    "esbuild": "^0.25.1",
+    "tsc-files": "^1.1.4"
+  },
+  "devDependencies": {
+    "@eslint/compat": "^1.2.7",
+    "@eslint/js": "^9.23.0",
+    "@rbnlffl/esbuild-plugin-browser-sync": "^0.0.1",
+    "@typescript-eslint/eslint-plugin": "^8.27.0",
+    "@typescript-eslint/parser": "^8.27.0",
+    "browser-sync": "^3.0.3",
+    "eslint": "^9.23.0",
+    "eslint-config-prettier": "^10.1.1",
+    "eslint-plugin-import": "^2.31.0",
+    "eslint-plugin-prettier": "^5.2.3",
+    "prettier": "^3.5.3",
+    "typescript": "^5.8.2",
+    "typescript-eslint": "^8.27.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/eniallator/Personal-Website.git"
+  },
+  "bugs": {
+    "url": "https://github.com/eniallator/Personal-Website/issues"
+  }
+}
