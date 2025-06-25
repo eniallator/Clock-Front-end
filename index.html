@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Clock</title>
+
+  <link rel="stylesheet" href="static/css/styles.min.css" />
+</head>
+
+<body>
+  <main>
+    <section class="content">
+      <h1>Matt's Clock Settings</h1>
+
+      <form action="/" method="get">
+        <label for="clock-time" class="form-control">
+          <strong class="hstack">
+            Time
+            <label class="toggle" tabindex="0">
+              <input type="checkbox" class="time-mode" />
+              <span class="toggle-checked">12HR</span>
+              <span class="toggle-unchecked">24HR</span>
+            </label>
+          </strong>
+          <div class="vstack">
+            <input id="clock-time" type="text" name="time" class="time-input" placeholder="00:00" />
+            <span class="error-message hidden">Time must be in 12hr or 24hr format</span>
+          </div>
+        </label>
+
+        <label class="form-control">
+          <strong>Brightness</strong>
+          <input type="range" name="brightness" min="0" max="1" step="0.01" value="1" />
+        </label>
+
+        <label class="form-control">
+          <strong>Colour</strong>
+          <div class="vstack">
+            <div class="field color-input">
+              <input type="text" value="FFFFFF" />
+              <input tabindex="-1" type="color" name="color" value="#FFFFFF" />
+            </div>
+            <span class="error-message hidden">Colors must be 6 hex digits</span>
+          </div>
+        </label>
+
+        <label class="form-control">
+          <strong>Alarms</strong>
+          <div class="collection">
+            <div class="collection-rows" collection-limit="5"></div>
+            <button class="collection-new-row button-primary" type="button">Add Alarm</button>
+          </div>
+        </label>
+
+        <button class="button-primary" type="submit">Save</button>
+      </form>
+    </section>
+  </main>
+
+  <div class="collection-template" style="display: none">
+    <div class="vstack">
+      <div class="collection-row field">
+        <input name="alarm" value="00:00" class="time-input" placeholder="00:00" />
+        <button type="button" class="button-primary delete-row">
+          <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 448 512">
+            <!--!Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc. -->
+            <path d="M135.2 17.7L128 32H32C14.3 32 0 46.3 0 64S14.3 96 32 96H416c17.7 0 32-14.3 32-32s-14.3-32-32-32H320l-7.2-14.3C307.4 6.8 296.3 0 284.2 0H163.8c-12.1 0-23.2 6.8-28.6 17.7zM416 128H32L53.2 467c1.6 25.3 22.6 45 47.9 45H346.9c25.3 0 46.3-19.7 47.9-45L416 128z" />
+          </svg>
+        </button>
+      </div>
+      <span class="error-message hidden">Time must be in 12hr or 24hr format</span>
+    </div>
+  </div>
+
+  <section id="credit">
+    <a href="https://cdrn.cc" target="_blank">
+      <span>
+        Created by Niall
+        <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 512 512">
+          <!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. -->
+          <path d="M320 0c-17.7 0-32 14.3-32 32s14.3 32 32 32h82.7L201.4 265.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L448 109.3V192c0 17.7 14.3 32 32 32s32-14.3 32-32V32c0-17.7-14.3-32-32-32H320zM80 32C35.8 32 0 67.8 0 112V432c0 44.2 35.8 80 80 80H400c44.2 0 80-35.8 80-80V320c0-17.7-14.3-32-32-32s-32 14.3-32 32V432c0 8.8-7.2 16-16 16H80c-8.8 0-16-7.2-16-16V112c0-8.8 7.2-16 16-16H192c17.7 0 32-14.3 32-32s-14.3-32-32-32H80z" />
+        </svg>
+      </span>
+    </a>
+  </section>
+
+  <script src="static/js/bundle.js"></script>
+</body>
+
+</html>
