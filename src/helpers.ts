@@ -11,7 +11,7 @@ export const getEl = <E extends HTMLElement>(
 export const getAll = <E extends HTMLElement>(
   selector: string,
   el: ParentNode = document
-) => [...el.querySelectorAll<E>(selector)];
+) => el.querySelectorAll<E>(selector).entries();
 
 // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-parameters
 export const closestEl = <E extends HTMLElement>(
